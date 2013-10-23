@@ -17,7 +17,7 @@ public class Generate {
 	private static ResultSet resultSet = null;
 
 	public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
-		String path = "/Users/cmilfont/projetos/thoth/public/teste6.pdf";
+		String path = "/Users/cmilfont/projetos/thoth/public/teste7.pdf";
 		
 		HashMap<String, String> config = new HashMap<String, String>();
 		config.put("author", "Christiano Milfont");
@@ -36,13 +36,18 @@ public class Generate {
 		connect = DriverManager
 				.getConnection("jdbc:mysql://localhost/thoth_development?user=root&password=root");
 		preparedStatement = connect
-				.prepareStatement("SELECT * FROM topicos t where t.publicacao_id = 128");
+				.prepareStatement("SELECT * FROM topicos t where t.publicacao_id = 147");
 		resultSet = preparedStatement.executeQuery();
 		
-		String cover = "/Users/cmilfont/projetos/thoth/public/system/publicacao_capas/imagens/000/000/018/full/capa.jpg";
+		String cover = "/Users/cmilfont/projetos/thoth/public/system/publicacao_capas/imagens/000/000/044/full/capa.jpg";
 		book.addCover(cover);
 		
 		while (resultSet.next()) {
+			
+			if(resultSet.getInt("id") == 14384) {
+				System.out.println( resultSet.getString("titulo") );
+			}
+			
 			String html = resultSet.getString("corpo_texto_rico_editor");
 			String titulo = resultSet.getString("titulo");
 			book.add(titulo, html);

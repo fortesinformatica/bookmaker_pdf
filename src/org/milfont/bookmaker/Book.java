@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.util.HashMap;
 
 import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -33,7 +32,7 @@ import com.itextpdf.tool.xml.pipeline.html.HtmlPipeline;
 import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
 
 public class Book {
-
+	
 	public Document document = new com.itextpdf.text.Document(PageSize.A4);
 	private String css;
 	private String fileName;
@@ -48,6 +47,7 @@ public class Book {
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
+		
 		document.open();
 
 		document.addAuthor( config.get("author") );
@@ -116,8 +116,11 @@ public class Book {
 
 	public void add(String titulo, String html) {
 		try {
-			Chapter chapter = new Chapter(titulo, 0);
-			document.add(chapter);
+			
+//			Chapter chapter = new Chapter(titulo, -1);
+//			document.add(chapter);
+			//document.add(Chunk.NEXTPAGE);
+			document.newPage();
 			if (html != null) {
 				InputStream streamHTML = new ByteArrayInputStream(
 						html.getBytes("UTF-8"));
